@@ -26,3 +26,5 @@
 *.exe
 *.out
 *.app
+/MyCourseProject/CppApplication_1/build/
+/MyCourseProject/CppApplication_1/dist/

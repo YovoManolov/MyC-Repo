@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1508703130 source:/home/yovo/MyCode/C++/MyCourseProject/main.cpp
+	<iostream>
+	<math.h>
+	"Date.h"
+	"Student.h"
+
+1508702746 source:/home/yovo/MyCode/C++/MyCourseProject/Date.cpp
+	<iostream>
+	"Date.h"
+
+1508702844 /home/yovo/MyCode/C++/MyCourseProject/Date.h
+	<iostream>
+
+1508703299 /home/yovo/MyCode/C++/MyCourseProject/Student.h
+	<iostream>
+	<string>
+	"Date.h"
+
+1508703536 source:/home/yovo/MyCode/C++/MyCourseProject/Student.cpp
+	<iostream>
+	<string>
+	"Date.h"
+	"Student.h"
+
