@@ -1,18 +1,17 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
-#include "Date.h"
 #include "Student.h"
+using namespace std;
+
 
 Student::Student(){};
 
-
-Student::Student(string name, unsigned long int fn, Date birthDate, float averageSuccess)
-: _name(name), _fn(fn), _birthDate(birthDate), _averageSuccess(averageSuccess)
+Student::Student(string name, unsigned long int fn, Date birthDate,float averageSuccess)
+:_name(name), _fn(fn), _birthDate(birthDate), _averageSuccess(averageSuccess)
 {}
 
-Student::~Student(void) {}
+Student::~Student() {}
 
 
 string Student::getName(){
@@ -20,33 +19,49 @@ string Student::getName(){
 }
 
 void Student::setName(string name){
-  name = name;
+  _name = name;
 }
 
 unsigned long int Student::getFn(){
-	return _fn;
+   return _fn;
 }
 
 void Student::setFn(unsigned long int fn){
     _fn = fn;
 }
 
-Date* Student::getBirthDate(){
-	return &_birthDate;
+Date Student::getBirthDate(){
+	return _birthDate;
 }
 
 void Student::setBirthDate(Date birthDate){
        _birthDate = birthDate;
 }
 
-int Student::getCurrentAge(Date currentDate){
+float Student::getAverageSuccess(){
+	return _averageSuccess;
+}
 
-       int currentYear = currentDate.getYear();
-       int currentMonth = currentDate.getMonth();
-      int currentDay = currentDate.getDay();
+void Student::setAverageSuccess(float averageSuccess){
+       _averageSuccess = averageSuccess;
+}
 
-       int returnAge = currentYear - _birthDate.getYear();
+int Student::getCurrentAge(){
 
+       time_t rawtime;
+       struct tm * timeinfo;
+       time(&rawtime);
+       
+       timeinfo = localtime (&rawtime);
+        
+        
+    
+       int currentYear = 1900 + timeinfo->tm_year;
+       int currentMonth = timeinfo->tm_mon + 1;
+       int currentDay = timeinfo->tm_mday;
+
+       int returnAge = (int) currentYear - _birthDate.getYear();
+ 
        if(currentMonth < _birthDate.getMonth()){
            returnAge -= 1;
        }else if(currentMonth == _birthDate.getMonth()){
@@ -57,3 +72,13 @@ int Student::getCurrentAge(Date currentDate){
 
        return returnAge ;
 }
+
+
+
+
+
+
+
+
+
+

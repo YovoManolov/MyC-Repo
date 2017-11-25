@@ -1,0 +1,116 @@
+
+#include "FileHandling.h"
+#include <iostream>
+using namespace std;
+
+FileHandling::FileHandling()
+:_fileName("StudentsInfo.txt"){}
+FileHandling::~FileHandling(){}
+
+bool FileHandling::writeStudents(){
+
+        
+	Date birthDate(25,4,1980);
+        Date birthDate1(25,4,1986);
+        Date birthDate2(24,4,1996);
+        Date birthDate3(29,5,1997);
+
+        Student anton("Stavri",121215173,birthDate,4.70);
+        Student student1("Nikol",121215173,birthDate1,4.70);
+        Student student2("Petyr",121215099,birthDate2,5.00);
+        Student student3("Name",121215084,birthDate3,5.64);
+        
+        Student studentArr[4];
+        studentArr[0] = anton;
+        studentArr[1] = student1;
+        studentArr[2] = student2;
+        studentArr[3] = student3;
+        
+	
+	ofstream ofs;
+        ofs.open(_fileName, ios::out);
+        if(ofs.is_open()){
+            ofs.write((char*)studentArr, sizeof(studentArr));
+        }else{
+            cout<<"Unable to open file"<<endl;
+        }
+ 
+        return true;
+
+}
+bool FileHandling::readStudents(){
+	Student student ;
+        
+        string name;
+        unsigned long int fn ;
+        Date  birthDate;
+        float averageSuccess;
+        
+	ifstream ifs;
+        ifs.open(_fileName, ios::in);
+        
+        while (!ifs.eof()) {
+            
+            ifs.read((char *)&name, sizeof(string));
+            ifs.read((char *)&fn, sizeof(unsigned long int));
+            ifs.read((char *)&birthDate, sizeof(Date));
+            ifs.read((char *)&averageSuccess, sizeof(float));
+            
+            student.setName(name);
+            student.setBirthDate(birthDate);
+            student.setFn(fn);
+            student.setAverageSuccess(averageSuccess);
+            
+            cout << " All Students Information\n";
+            cout << "\n Current years of student :   " <<
+                                    student.getCurrentAge();
+            
+            cout << "\nStudent Name:    " << student.getName() <<"  \n "<< endl;
+            cout << "Faculty Number:    " << student.getFn() <<"  \n "<< endl;
+
+            Date birthDate = student.getBirthDate();
+            cout << "BirthDate: year: " << birthDate.getYear() <<"  month :" <<
+            birthDate.getMonth() <<"  day: "<< birthDate.getDay()<<"\n" << endl;
+           
+            
+            
+            cout<<"------------------------------------"<<endl;
+            cout<<"------------------------------------"<<endl;
+        }
+        ifs.close();
+        
+        ifs.open(_fileName, ios::in);
+            
+        while (!ifs.eof()) {
+            
+            ifs.read((char *)&name, sizeof(string));
+            ifs.read((char *)&fn, sizeof(unsigned long int));
+            ifs.read((char *)&birthDate, sizeof(Date));
+            ifs.read((char *)&averageSuccess, sizeof(float));
+            
+           student.setName(name);
+            student.setBirthDate(birthDate);
+            student.setFn(fn);
+            student.setAverageSuccess(averageSuccess);
+                    
+            int currentAge = student.getCurrentAge();
+            if(currentAge > 18 || currentAge < 26){
+                cout << "\nStudents Information with age between 18 and 26 \n";
+                cout << "Student Name:    " << name <<"  \n "<< endl;
+                cout << "Faculty Number:    "
+                                        << fn <<"  \n "<< endl;
+                cout << "BirthDate: year: " 
+                       << birthDate.getYear() << "  month :" 
+                        << birthDate.getMonth() <<" day: "
+                        << birthDate.getDay()<<"\n" << endl;
+                cout << "\n Current years of student : " 
+                                    << student.getCurrentAge();
+                
+                cout<<"\n------------------------------------\n";
+                cout<<"------------------------------------\n";
+            }
+        }
+        ifs.close();
+        
+        return true;
+}

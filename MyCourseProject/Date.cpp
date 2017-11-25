@@ -26,10 +26,10 @@ void Date::setMonth(int month){
     _month = month;
 }
 
-int Date::getYear(){
+unsigned int Date::getYear(){
 	return _year;
 }
 
-void Date::setYear(int year){
+void Date::setYear(unsigned int year){
     _year = year;
 }
