@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/5c0/Date.o \
 	${OBJECTDIR}/_ext/5c0/FileHandling.o \
 	${OBJECTDIR}/_ext/5c0/Student.o \
+	${OBJECTDIR}/_ext/5c0/StudentLLHandler.o \
 	${OBJECTDIR}/_ext/5c0/main.o
 
 
@@ -79,6 +80,11 @@ ${OBJECTDIR}/_ext/5c0/Student.o: ../Student.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/Student.o ../Student.cpp
+
+${OBJECTDIR}/_ext/5c0/StudentLLHandler.o: ../StudentLLHandler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/5c0
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/5c0/StudentLLHandler.o ../StudentLLHandler.cpp
 
 ${OBJECTDIR}/_ext/5c0/main.o: ../main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/5c0

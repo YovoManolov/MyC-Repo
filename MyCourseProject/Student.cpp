@@ -7,7 +7,7 @@ using namespace std;
 
 Student::Student(){};
 
-Student::Student(string name, unsigned long int fn, Date birthDate,float averageSuccess)
+Student::Student(string name,unsigned long int fn, Date birthDate,float averageSuccess)
 :_name(name), _fn(fn), _birthDate(birthDate), _averageSuccess(averageSuccess)
 {}
 
@@ -74,11 +74,19 @@ int Student::getCurrentAge(){
 }
 
 
-
-
-
-
-
+    ostream& operator<< (ostream &out,Student &student){
+              // Since operator<< is a friend of the Student class, 
+             //we can access Point's members directly.
+             out<<"\nStudent name: "
+             <<student._name<<"\nStudent fn: "
+             <<student._fn<<"\nStudent birth date: "
+             << student._birthDate.getDay()<<"."
+             << student._birthDate.getMonth()<<"."<< student._birthDate.getYear()
+             <<"\nStudent current age: "<< student.getCurrentAge()
+             <<"\nStudent avarage success: "<< student._averageSuccess
+             <<"\n-----------------------------------------------------------";
+    return out;
+}
 
 
 

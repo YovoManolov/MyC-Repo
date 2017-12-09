@@ -1,116 +1,90 @@
 
 #include "FileHandling.h"
+#include "StudentLLHandler.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
-FileHandling::FileHandling()
-:_fileName("StudentsInfo.txt"){}
+FileHandling::FileHandling(){}
+
 FileHandling::~FileHandling(){}
 
-bool FileHandling::writeStudents(){
 
-        
-	Date birthDate(25,4,1980);
-        Date birthDate1(25,4,1986);
-        Date birthDate2(24,4,1996);
-        Date birthDate3(29,5,1997);
+StudentLLHandler FileHandling::createStudentList(){
+    
+    StudentLLHandler studentLLHandl;
+    
+    int day;
+    int month;
+    int year;
+     
+    string name;
+    unsigned long int fn;
+    float averageSuccess;
+    
+    int numberOfStudents;
+    cout<<"Enter number of students to enter : " ;
+    cin >> numberOfStudents;
+    
 
-        Student anton("Stavri",121215173,birthDate,4.70);
-        Student student1("Nikol",121215173,birthDate1,4.70);
-        Student student2("Petyr",121215099,birthDate2,5.00);
-        Student student3("Name",121215084,birthDate3,5.64);
+    for(int i= 0 ; i< numberOfStudents; i++){
         
-        Student studentArr[4];
-        studentArr[0] = anton;
-        studentArr[1] = student1;
-        studentArr[2] = student2;
-        studentArr[3] = student3;
+        do{
+         cout<<"\n\nEnter day of birth: ";
+         cin >> day ; cout<<endl;
+         if(day < 1 || day > 31){
+             cout<<"Day out of range!"<<endl;
+         }
+        }while(day < 1 || day > 31);
         
-	
-	ofstream ofs;
-        ofs.open(_fileName, ios::out);
-        if(ofs.is_open()){
-            ofs.write((char*)studentArr, sizeof(studentArr));
-        }else{
-            cout<<"Unable to open file"<<endl;
+        do{
+         cout<<"Enter month of birth: ";
+         cin >> month ; cout<<endl;
+         if(month < 1 || month > 12){
+             cout<<"Month out of range!"<<endl;
+         }
+        }while(month < 1 || month > 12);
+        
+        do{
+         cout<<"Enter year of birth: ";
+         cin >> year ; cout<<endl;
+         if(year < 1930 || year > 9999){
+             cout<<"Year out of range!"<<endl;
+         }
+        }while(year < 1930 || year > 9999);
+        
+        
+        
+        Date birthDate(day,month,year);
+        
+        cout<<"Enter name of student: ";
+        cin >> name; cout<<endl;
+        cout<<"Enter fn of student: ";
+        cin >> fn; cout<<endl;
+        cout<<"Enter avarage success of student: ";
+        cin >> averageSuccess; 
+        cout<<endl;
+        
+        studentLLHandl.addStudent(name,fn,birthDate,averageSuccess);
+        
+        if(i < numberOfStudents-1){
+            cout<<"--------------------------------------------------"<<endl;
+            cout<<"-------------------Next Student ------------------"<<endl;
+            cout<<"--------------------------------------------------"<<endl; 
         }
- 
-        return true;
-
+    }
+    
+    return studentLLHandl;
 }
-bool FileHandling::readStudents(){
-	Student student ;
-        
-        string name;
-        unsigned long int fn ;
-        Date  birthDate;
-        float averageSuccess;
-        
-	ifstream ifs;
-        ifs.open(_fileName, ios::in);
-        
-        while (!ifs.eof()) {
-            
-            ifs.read((char *)&name, sizeof(string));
-            ifs.read((char *)&fn, sizeof(unsigned long int));
-            ifs.read((char *)&birthDate, sizeof(Date));
-            ifs.read((char *)&averageSuccess, sizeof(float));
-            
-            student.setName(name);
-            student.setBirthDate(birthDate);
-            student.setFn(fn);
-            student.setAverageSuccess(averageSuccess);
-            
-            cout << " All Students Information\n";
-            cout << "\n Current years of student :   " <<
-                                    student.getCurrentAge();
-            
-            cout << "\nStudent Name:    " << student.getName() <<"  \n "<< endl;
-            cout << "Faculty Number:    " << student.getFn() <<"  \n "<< endl;
+  
 
-            Date birthDate = student.getBirthDate();
-            cout << "BirthDate: year: " << birthDate.getYear() <<"  month :" <<
-            birthDate.getMonth() <<"  day: "<< birthDate.getDay()<<"\n" << endl;
-           
-            
-            
-            cout<<"------------------------------------"<<endl;
-            cout<<"------------------------------------"<<endl;
-        }
-        ifs.close();
-        
-        ifs.open(_fileName, ios::in);
-            
-        while (!ifs.eof()) {
-            
-            ifs.read((char *)&name, sizeof(string));
-            ifs.read((char *)&fn, sizeof(unsigned long int));
-            ifs.read((char *)&birthDate, sizeof(Date));
-            ifs.read((char *)&averageSuccess, sizeof(float));
-            
-           student.setName(name);
-            student.setBirthDate(birthDate);
-            student.setFn(fn);
-            student.setAverageSuccess(averageSuccess);
-                    
-            int currentAge = student.getCurrentAge();
-            if(currentAge > 18 || currentAge < 26){
-                cout << "\nStudents Information with age between 18 and 26 \n";
-                cout << "Student Name:    " << name <<"  \n "<< endl;
-                cout << "Faculty Number:    "
-                                        << fn <<"  \n "<< endl;
-                cout << "BirthDate: year: " 
-                       << birthDate.getYear() << "  month :" 
-                        << birthDate.getMonth() <<" day: "
-                        << birthDate.getDay()<<"\n" << endl;
-                cout << "\n Current years of student : " 
-                                    << student.getCurrentAge();
-                
-                cout<<"\n------------------------------------\n";
-                cout<<"------------------------------------\n";
-            }
-        }
-        ifs.close();
-        
-        return true;
+void FileHandling::printStudents(){
+    StudentLLHandler stLLHandl,stLLHandl1;
+    cout<<"-----------------------------------------------------------"<<endl;
+    cout<<"--------Printing students with age between 18 and 26 ------"<<endl;
+    cout<<"-----------------------------------------------------------"<<endl;
+    stLLHandl.readFromFile(true); //when true with condition for age
+    
+    stLLHandl1.readFromFile(false); //when false without condition for age
+    stLLHandl1.averageStudentSuccess();
 }

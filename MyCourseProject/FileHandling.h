@@ -3,6 +3,7 @@
 
 #include "Student.h"
 #include "Date.h"
+#include "StudentLLHandler.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -11,13 +12,12 @@ using namespace std;
 class FileHandling
 {
     private:
-	string _fileName ;
     public:
         FileHandling();
         ~FileHandling();
-        bool readStudents();
-        bool writeStudents();
-
+        
+        StudentLLHandler createStudentList();
+        void printStudents();
 };
 
 #endif 
